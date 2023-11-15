@@ -4,11 +4,19 @@ import { RouterOutlet } from '@angular/router';
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { HttpClientModule } from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, MatIconModule, MatToolbarModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    MatIconModule,
+    MatToolbarModule,
+    MatButtonModule,
+    HttpClientModule,
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
