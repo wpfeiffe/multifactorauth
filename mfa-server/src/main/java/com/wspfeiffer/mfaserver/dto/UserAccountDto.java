@@ -19,6 +19,7 @@ public class UserAccountDto implements Serializable {
     String firstName;
     String lastName;
     Boolean active;
+    Boolean mfaEnabled;
     @JsonIgnore
     String totpCode;
 }

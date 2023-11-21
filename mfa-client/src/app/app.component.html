@@ -1,15 +1,29 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+  <button mat-icon-button  [matMenuTriggerFor]="controlMenu" aria-label="Control Menu">
     <mat-icon>menu</mat-icon>
   </button>
   <span>Multifactor Authentication App</span>
   <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
+  <button mat-icon-button [matMenuTriggerFor]="userAccountMenu" aria-label="User Account Menu">
+    <mat-icon>person</mat-icon>
   </button>
 </mat-toolbar>
+
+<mat-menu #userAccountMenu="matMenu">
+  <button mat-menu-item [routerLink]="['/login']">
+    <mat-icon>login</mat-icon>
+    <span>Login</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>logout</mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>
+<mat-menu #controlMenu="matMenu">
+  <button mat-menu-item  [routerLink]="['/users']">
+    <mat-icon>group</mat-icon>
+    <span>Users</span>
+  </button>
+</mat-menu>
 
 <router-outlet></router-outlet>

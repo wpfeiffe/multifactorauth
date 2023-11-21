@@ -1,6 +1,6 @@
-GET http://localhost:8080/users
+GET http://localhost:8080/api/users
 Authorization: Basic wpfeiffe Password1
 
 ###
-GET http://localhost:8080/users?username=admin
+GET http://localhost:8080/api/users?username=admin
 Authorization: Basic wpfeiffe Password1

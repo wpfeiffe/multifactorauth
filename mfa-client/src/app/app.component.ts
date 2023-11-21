@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { HttpClientModule } from "@angular/common/http";
+import { MatMenuModule } from "@angular/material/menu";
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,8 @@ import { HttpClientModule } from "@angular/common/http";
     MatToolbarModule,
     MatButtonModule,
     HttpClientModule,
+    MatMenuModule,
+    RouterLink,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']

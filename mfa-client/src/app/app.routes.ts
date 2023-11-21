@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { UsersComponent } from "./users/users/users.component";
+import { LoginComponent } from "./users/login/login.component";
+import { MfacodeComponent } from "./users/mfacode/mfacode.component";
 
 export const routes: Routes = [
   {
@@ -12,5 +14,14 @@ export const routes: Routes = [
     path: 'users',
     component: UsersComponent,
 
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+
+  },
+  {
+    path: 'mfacode',
+    component: MfacodeComponent,
   }
 ];

@@ -20,6 +20,10 @@ public class MfaUserDetails implements UserDetails {
         this.userRoles = userRoles;
     }
 
+    public UserAccountDto getUserAccount() {
+        return this.userAccount;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

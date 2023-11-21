@@ -37,6 +37,9 @@ public class UserAccount {
     @Column(name = "active", nullable = false)
     private Boolean active = false;
 
+    @Column(name = "mfa_enabled", nullable = false)
+    private Boolean mfaEnabled = false;
+
     @Column(name = "totp_code", nullable = false, length = 200)
     private String totpCode;
 

@@ -22,6 +22,7 @@ CREATE TABLE user_account
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     active BOOLEAN NOT NULL DEFAULT false,
+    mfa_enabled BOOLEAN NOT NULL DEFAULT false,
     totp_code VARCHAR(200) NOT NULL 
 );
 
