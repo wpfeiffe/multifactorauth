@@ -31,6 +31,11 @@ public class AuthResource {
 
     @PostMapping    ("/login")
     ResponseEntity<LoginResponseDto> login(@RequestBody LoginDto loginDto, HttpServletRequest request) {
+        Authentication currAuth = SecurityContextHolder.getContext().getAuthentication();
+        if (currAuth.isAuthenticated()) {
+            LoginResponseDto loginResponseDto =  new LoginResponseDto(false, true, "OK", "", ((MfaUserDetails) currAuth.getPrincipal()).getUserAccount());
+            return ResponseEntity.ok(loginResponseDto);
+        }
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
             MfaUserDetails userDetails;
@@ -43,7 +48,7 @@ public class AuthResource {
 
             if (userDetails.getUserAccount().getMfaEnabled()) {
                 UUID uuid = UUID.nameUUIDFromBytes(userDetails.getUserAccount().getUsername().getBytes());
-                request.getSession().setAttribute(uuid.toString(), userDetails);
+                request.getSession().setAttribute(uuid.toString(), authentication);
                 LoginResponseDto loginResponse = new LoginResponseDto(true, false, "MFA Enabled", uuid.toString(), null);
                 return ResponseEntity.ok(loginResponse);
             } else {
@@ -62,9 +67,14 @@ public class AuthResource {
 
     @PostMapping    ("/verify")
     ResponseEntity<LoginResponseDto> login(@RequestBody MfaRequestDto mfaRequest, HttpServletRequest request) {
-        MfaUserDetails userDetails = (MfaUserDetails) request.getSession().getAttribute(mfaRequest.getMfaToken());
-        if (userDetails != null) {
-            LoginResponseDto loginResponse = new LoginResponseDto(true, true, "OK", "", userDetails.getUserAccount());
+        Authentication authentication = (Authentication) request.getSession().getAttribute(mfaRequest.getMfaToken());
+        if (authentication != null) {
+            var mfaUserDetails = (MfaUserDetails) authentication.getPrincipal();
+            LoginResponseDto loginResponse = new LoginResponseDto(true, true, "OK", "", mfaUserDetails.getUserAccount());
+            var newContext = SecurityContextHolder.createEmptyContext();
+
+            newContext.setAuthentication(authentication);
+            SecurityContextHolder.setContext(newContext);
             return ResponseEntity.ok(loginResponse);
         } else {
             LoginResponseDto loginResponse = new LoginResponseDto(true, false, "Bad Credentials", "", null);

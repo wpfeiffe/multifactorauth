@@ -8,71 +8,78 @@ plugins {
 group = 'com.wspfeiffer'
 version = '0.0.1-SNAPSHOT'
 
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(21))
+  }
+}
+
 processResources {
   dependsOn "buildAngular"
 }
 
-task buildAngular(type: Exec) {
-    // make sure the build task is executed only when appropriate files change
-    inputs.files fileTree('src')
+tasks.register('buildAngular', Exec) {
+  // make sure the build task is executed only when appropriate files change
+  inputs.files fileTree('src')
 
-    // 'node_modules' appeared not reliable for dependency change detection (the task was rerun without changes)
-    // though 'package.json' and 'package-lock.json' should be enough anyway
-    inputs.file 'package.json'
-    inputs.file 'package-lock.json'
-    inputs.file 'angular.json'
+  // 'node_modules' appeared not reliable for dependency change detection (the task was rerun without changes)
+  // though 'package.json' and 'package-lock.json' should be enough anyway
+  inputs.file 'package.json'
+  inputs.file 'package-lock.json'
+  inputs.file 'angular.json'
 
-    outputs.dir 'src/main/resources/public'
+  outputs.dir 'src/main/resources/public'
 
 
-    // installAngular should be run prior to this task
-    dependsOn "installAngular"
+  // installAngular should be run prior to this task
+  dependsOn "installAngular"
 
-    // Add task to the standard build group
-    group = BasePlugin.BUILD_GROUP
-    List args = new ArrayList();
+  // Add task to the standard build group
+  group = BasePlugin.BUILD_GROUP
+  List args = new ArrayList();
 
-    // ng doesn't exist as a file in windows -> ng.cmd
-    if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")) {
-        args << "ng.cmd"
-    } else {
-        args << "ng"
-    }
-    args << "build"
+  // ng doesn't exist as a file in windows -> ng.cmd
+  if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")) {
+    args << "ng.cmd"
+  } else {
+    args << "ng"
+  }
+  args << "build"
 //    if (project.hasProperty("sourceMap")) {
-    args << "--source-map"
+  args << "--source-map"
 //    }
-    if (project.hasProperty("ngProd")) {
-        args << "--configuration=production"
-    }
-    commandLine args
+  if (project.hasProperty("ngProd")) {
+    args << "--configuration=production"
+  }
+  commandLine args
 
 }
 
-task runAngular(type: Exec) {
-    // installAngular should be run prior to this task
-    dependsOn "installAngular"
-    workingDir "$projectDir"
-    inputs.dir "$projectDir"
-    // Add task to the standard build group
-    group = "application"
-    // ng doesn't exist as a file in windows -> ng.cmd
-    if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")) {
-        commandLine "ng.cmd", "serve"
-    } else {
-        commandLine "ng", "serve"
-    }
+tasks.register('runAngular', Exec) {
+  // installAngular should be run prior to this task
+  dependsOn "installAngular"
+  workingDir "$projectDir"
+  inputs.dir "$projectDir"
+  // Add task to the standard build group
+  group = "application"
+  // ng doesn't exist as a file in windows -> ng.cmd
+  if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")) {
+    commandLine "ng.cmd", "serve"
+  } else {
+    commandLine "ng", "serve"
+  }
 }
 
-task installAngular(type: Exec) {
-    workingDir "$projectDir"
-    inputs.dir "$projectDir"
-    group = BasePlugin.BUILD_GROUP
-    if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")) {
-        commandLine "npm.cmd", "install", "--legacy-peer-deps"
-    } else {
-        commandLine "npm", "install", "--legacy-peer-deps"
-    }
+tasks.register('installAngular', Exec) {
+  workingDir "$projectDir"
+  inputs.dir "$projectDir"
+  group = BasePlugin.BUILD_GROUP
+  dependsOn compileJava
+  if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")) {
+    commandLine "npm.cmd", "install", "--legacy-peer-deps"
+  } else {
+    commandLine "npm", "install", "--legacy-peer-deps"
+  }
 }
 
 jar {

@@ -3,7 +3,6 @@ server:
   address: 0.0.0.0
 spring:
   datasource:
-    #    url: jdbc:h2:file:${H2_DIR:./data}/retrospect
     url: jdbc:postgresql://${POSTGRES_HOST:localhost}:5432/${POSTGRES_DB:mfaserver}
     driverClassName: org.postgresql.Driver
     username: ${POSTGRES_USER:mfaserver}
@@ -28,9 +27,12 @@ management:
   endpoint:
     health:
       show-details: always
-#logging:
-#  level:
-#    org:
-#      springframework:
-#        security: TRACE
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG   '
+application:
+  nps-api-key: ${NPS_API_KEY}
+
 

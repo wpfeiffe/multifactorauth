@@ -25,17 +25,21 @@ public class MfaAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         log.info("Before MfaAuthFilter");
-        Authentication authRequest = this.basicAuthenticationConverter.convert(request);
-        if (authRequest == null) {
-            filterChain.doFilter(request, response);
-            log.info("After MfaAuthFilter");
-            return;
-        }
-        String username = authRequest.getName();
-        this.logger.trace(LogMessage.format("Found username '%s' in Basic Authorization header", username));
-        if (this.authenticationIsRequired(username)) {
+        filterChain.doFilter(request, response);
+        log.info("After MfaAuthFilter");
 
-        }
+//        Authentication authRequest = this.basicAuthenticationConverter.convert(request);
+//        if (authRequest == null) {
+//            filterChain.doFilter(request, response);
+//            log.info("After MfaAuthFilter");
+//            return;
+//        }
+//
+//        String username = authRequest.getName();
+//        this.logger.trace(LogMessage.format("Found username '%s' in Basic Authorization header", username));
+//        filterChain.doFilter(request, response);
+//        log.info("After MfaAuthFilter");
+//        return;
     }
 
     protected boolean authenticationIsRequired(String username) {

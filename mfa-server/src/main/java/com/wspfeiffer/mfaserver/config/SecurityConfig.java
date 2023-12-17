@@ -19,15 +19,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
+                .securityMatcher("/**")
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/**").permitAll()
-                        .requestMatchers("/api/users/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/users/**").authenticated()
+                        .requestMatchers("/*").permitAll()
                         .anyRequest().authenticated())
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(Customizer.withDefaults())
                 .httpBasic((basic) -> basic
                         .securityContextRepository(new HttpSessionSecurityContextRepository()))
+                .logout(customizer -> customizer.logoutUrl("/logout"))
                 .addFilterBefore(new MfaAuthFilter(), BasicAuthenticationFilter.class)
                 .build();
     }
