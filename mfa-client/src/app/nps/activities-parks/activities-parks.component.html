@@ -1,0 +1,38 @@
+<div class="main-div">
+  <mat-card class="activities-card">
+    <mat-card-title-group>
+      <mat-card-title>Parks that have activity: {{activityParks.data[0].name}}</mat-card-title>
+    </mat-card-title-group>
+    <mat-card-content>
+      <table mat-table [dataSource]="activityParks.data[0].parks" class="mat-elevation-z8">
+        <ng-container matColumnDef="designation">
+          <th mat-header-cell *matHeaderCellDef>Designation</th>
+          <td mat-cell *matCellDef="let park">{{park.designation}}</td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let park">{{park.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="fullName">
+          <th mat-header-cell *matHeaderCellDef>Full Name</th>
+          <td mat-cell *matCellDef="let park">{{park.fullName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="parkCode">
+          <th mat-header-cell *matHeaderCellDef>Park Code</th>
+          <td mat-cell *matCellDef="let park">{{park.parkCode}} </td>
+        </ng-container>
+        <ng-container matColumnDef="states">
+          <th mat-header-cell *matHeaderCellDef>States</th>
+          <td mat-cell *matCellDef="let park">{{park.states}} </td>
+        </ng-container>
+        <ng-container matColumnDef="url">
+          <th mat-header-cell *matHeaderCellDef>Park Site</th>
+          <td mat-cell *matCellDef="let park"><a href="{{park.url}}"><mat-icon>link</mat-icon></a> </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>
+
