@@ -1,10 +1,23 @@
 <div class="main-div">
   <mat-card class="activities-card">
     <mat-card-title-group>
-      <mat-card-title>Parks that have activity: {{activityParks.data[0].name}}</mat-card-title>
+
+      @if (dataAvailable) {
+        <mat-card-title>
+          <a class="center-link" [routerLink]="['/activities']"><mat-icon fontIcon="arrow_back"></mat-icon> Back to activities</a>
+          Parks that have activity: {{activityParks.data[0].name}}
+        </mat-card-title>
+      } @else {
+        <mat-card-title>Pulling parks...</mat-card-title>
+      }
     </mat-card-title-group>
     <mat-card-content>
-      <table mat-table [dataSource]="activityParks.data[0].parks" class="mat-elevation-z8">
+      @if (showError && !dataAvailable) {
+        {{ errorText }}
+      } @else if (!dataAvailable) {
+        <mat-spinner></mat-spinner>
+      } @else if (dataAvailable) {
+        <table mat-table [dataSource]="activityParks.data[0].parks" class="mat-elevation-z8">
         <ng-container matColumnDef="designation">
           <th mat-header-cell *matHeaderCellDef>Designation</th>
           <td mat-cell *matCellDef="let park">{{park.designation}}</td>
@@ -27,11 +40,12 @@
         </ng-container>
         <ng-container matColumnDef="url">
           <th mat-header-cell *matHeaderCellDef>Park Site</th>
-          <td mat-cell *matCellDef="let park"><a href="{{park.url}}"><mat-icon>link</mat-icon></a> </td>
+          <td mat-cell *matCellDef="let park"><a (click)="goToLink(park.url)"><mat-icon>link</mat-icon></a> </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
+      }
     </mat-card-content>
   </mat-card>
 </div>

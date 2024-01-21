@@ -1,10 +1,19 @@
 <div class="main-div">
   <mat-card class="activities-card">
     <mat-card-title-group>
-      <mat-card-title>Activities List</mat-card-title>
+      @if (dataAvailable) {
+        <mat-card-title>Activities List</mat-card-title>
+      } @else {
+        <mat-card-title>Pulling activities...</mat-card-title>
+      }
     </mat-card-title-group>
     <mat-card-content>
-      <table mat-table [dataSource]="activity.data" class="mat-elevation-z8">
+      @if (showError && !dataAvailable) {
+        {{ errorText }}
+      } @else if (!dataAvailable) {
+        <mat-spinner></mat-spinner>
+      } @else if (dataAvailable) {
+        <table mat-table [dataSource]="activity.data" class="mat-elevation-z8">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef> ID</th>
           <td mat-cell *matCellDef="let actData"><a [routerLink]="['/act-parks', actData.id]">{{actData.id}}</a></td>
@@ -16,6 +25,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
+      }
     </mat-card-content>
   </mat-card>
 </div>

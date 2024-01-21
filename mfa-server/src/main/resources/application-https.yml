@@ -1,0 +1,14 @@
+server:
+  port: 8443
+  ssl:
+    bundle: "web-server"
+spring:
+  ssl:
+    bundle:
+      jks:
+        web-server:
+          key:
+            password: "Password1"
+          keystore:
+            location: "classpath:certificates/snicko-mbp-2021.local.p12"
+            password: "Password1"

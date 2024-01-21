@@ -37,7 +37,8 @@ dependencies {
     implementation "org.mapstruct:mapstruct:$mapstructVersion"
     implementation project(':mfa-client')
     compileOnly "org.projectlombok:lombok:$lombokVersion"
-    runtimeOnly 'org.postgresql:postgresql'
+//    runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'com.h2database:h2'
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
     annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

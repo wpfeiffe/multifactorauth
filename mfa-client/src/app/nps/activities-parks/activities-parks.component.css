@@ -6,3 +6,9 @@ table {
   width: 75%;
   margin: 20px auto;
 }
+
+.center-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

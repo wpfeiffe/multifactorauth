@@ -1,0 +1,12 @@
+{
+  "/api": {
+    "target": "https://snicko-mbp-2021.local:8443",
+    "secure": "true",
+    "loglevel": "debug"
+  },
+  "/api/auth/login": {
+    "target": "https://snicko-mbp-2021.local:8443",
+    "secure": "true",
+    "loglevel": "debug"
+  }
+}

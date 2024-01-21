@@ -6,3 +6,7 @@ table {
   width: 75%;
   margin: 20px auto;
 }
+
+:host .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #0CC20C;
+}
