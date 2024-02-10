@@ -22,6 +22,7 @@ public class SecurityConfig {
                 .securityMatcher("/**")
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/chatgpt/**").permitAll()
                         .requestMatchers("/api/users/**").authenticated()
                         .requestMatchers("/*").permitAll()
                         .anyRequest().authenticated())

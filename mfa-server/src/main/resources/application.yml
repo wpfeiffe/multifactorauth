@@ -17,6 +17,9 @@ spring:
       ddl-auto: none
     properties:
       org.hibernate.flushMode: ALWAYS
+  ai:
+    openai:
+      api-key: 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
   session:
     jdbc:
       initialize-schema: always
@@ -35,6 +38,7 @@ logging:
     org:
       springframework:
         security: DEBUG   '
+
 application:
   nps-api-key: ${NPS_API_KEY}
 
