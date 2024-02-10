@@ -1,0 +1,21 @@
+<mat-card class="chatgpt-card">
+  <mat-card-header class="header">
+    <mat-card-title>ChatGPT</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form (ngSubmit)="sendPrompt()" #userForm="ngForm">
+      <div class="input-container">
+        <mat-form-field appearance="fill" class="mat-input">
+          <mat-label>ChatGPT Prompt</mat-label>
+          <textarea matInput name="prompt" id="prompt" #prompt="ngModel"
+                    [(ngModel)]="theprompt" placeholder="Prompt" required> </textarea>
+        </mat-form-field>
+      </div>
+      <div>{{completion}}</div>
+      <div>
+        <button type="submit" mat-raised-button color="primary">Send Prompt</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+

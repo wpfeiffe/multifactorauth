@@ -1,0 +1,29 @@
+.card-spacing {
+  padding: 30px;
+}
+
+.main-div {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  margin-bottom: 2vh;
+}
+.chatgpt-card {
+  max-width: 600px;
+  width: 75%;
+  margin: 20px auto;
+}
+
+.mat-input {
+  flex-grow: 1;
+  margin-left: 5px;
+}
+
+.input-container {
+  display: flex;
+}
+
