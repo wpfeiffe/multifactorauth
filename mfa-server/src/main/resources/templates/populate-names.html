@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf Htmx Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+<body>
+<p th:each="name, status : ${names}" th:text="${name}"></p>
+</body>
+</html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
 
 <head>
     <title>Thymeleaf Htmx Page</title>
@@ -10,8 +10,15 @@
 
 <body>
 
-<h1>HTMX1!</h1>
-<p th:text="'Test ' + ${appname}">Welcome to the Thymeleaf Htmx page (default text)</p>
+    <h1>HTMX1!</h1>
+    <p th:text="'Test ' + ${appname}">Welcome to the Thymeleaf Htmx page (default text)</p>
+    <p/>
+    <div><button id="trigger-btn" type="button"
+                 hx-get="/htmx/populate-names"
+                 hx-trigger="click"
+                 hx-target="#populate-names"
+                 hx-swap="innerHTML">Show Names</button> </div>
+    <div id="populate-names"></div>
 
 </body>
 
